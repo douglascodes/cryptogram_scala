@@ -1,24 +1,13 @@
-package com.DouglasCodes.Cryptograma_scala.Letter
+package com.DouglasCodes.CryptogramScala.Letter
+import com.DouglasCodes.CryptogramScala.UnitOfLanguage
 
-class Letter(val name: Char ) {
-  private var possibles: Set[Char] =
-    if ( "'-".contains(name) )
-      Set(name)
-    else
-      ('A' to 'Z').toSet - name
+class Letter(val name: Char, val initial: Set[Char] ) extends UnitOfLanguage[Char] {
+  def this(name: Char) =
+    this(name: Char, ('A' to 'Z').toSet - name)
 
-  def possibilities: Int =
-    possibles.size
-
-  def singular: Boolean =
-    possibilities == 1
-
-  def canBe(x: Char): Boolean =
-    possibles.contains(x)
-
-  def reassign(p: Set[Char] ) =
-    possibles = p
+  protected var possibles: Set[Char] =
+    initial
 
   override def toString: String =
-    name + possibles.mkString(": { ", ", ", " }")
+    name + possibles.mkString(": { ", ", ", " }\n")
 }
