@@ -16,3 +16,8 @@ trait UnitOfLanguage[T] {
       possibles = p
 
 }
+
+val OrderedUniqueString: Function1[String, String] =
+  (name: String) =>
+    name.foldLeft(new String)((a, b) =>
+      { if (a.contains(b)) a else a + b} )
