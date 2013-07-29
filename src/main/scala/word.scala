@@ -20,11 +20,9 @@ class Word(val name: String, val dictionary: Dictionary ) extends UnitOfLanguage
   override def canBe( testWord: String ): Boolean = {
     if ( testWord.size != this.uName.size )
       return false
-
     for ( i: Int <- (0 until testWord.size) )
       if ( !(value(i).canBe(testWord(i) ) ) )
         return false
-
     return true
   }
 
