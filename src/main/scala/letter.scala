@@ -1,5 +1,4 @@
-package com.DouglasCodes.CryptogramScala.Letter
-import com.DouglasCodes.CryptogramScala.UnitOfLanguage
+package com.DouglasCodes.CryptogramScala
 
 class Letter(val name: Char, val initial: Set[Char] ) extends UnitOfLanguage[Char] {
   def this(name: Char) =

@@ -1,14 +1,20 @@
-package com.DouglasCodes.CryptogramScala.Dictionary
-import com.DouglasCodes.CryptogramScala.UnitOfLanguage
-import scala.collection.immutable.HashMap
+package com.DouglasCodes.CryptogramScala
 import scala.io.Source
 
-class Dictionary(val name: String, srcfile: String ){
-  var words =
+class DictionaryEntry(val name: String) {
+  val uName: String = CryptogramSolver.OrderedUniqueString(name)
+  val pattern: String = CryptogramSolver.NumericPatternOfString(name)
+  def size: Int =
+    name.size
+  def uSize: Int =
+    uName.size
+  def mkString: String=
+    name
+}
+class Dictionary(val name: String, srcfile: String ) {
+  var words: Map[Int, Set[DictionaryEntry]] =
     { for (l <- Source.fromFile(srcfile).getLines() )
-      yield (l -> Tuple2[Int, String](OrderedUniqueString(l).size,
-      NumericPatternOfString(l) ) ) }.toMap.
-      groupBy(f = (a) => a._1.size  )
+      yield new DictionaryEntry(l) }.toSet[DictionaryEntry].groupBy(_.size )
 
   override def toString: String =
     name + ": " +

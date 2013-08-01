@@ -1,0 +1,22 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"./gradle compileScala"
+			],
+			"name": "Gradle"
+		}
+	],
+	"folders":
+	[
+		{
+			"name": "Source Code",
+			"path": "src"
+		},
+		{
+			"path": "./."
+		}
+	]
+}

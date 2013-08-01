@@ -1,5 +1,4 @@
-package com.DouglasCodes.CryptogramScala.LetterPool
-import com.DouglasCodes.CryptogramScala.Letter
+package com.DouglasCodes.CryptogramScala
 
 object LetterPool {
   private val alphabet: Set[Char] = ('A' to 'Z').toSet
