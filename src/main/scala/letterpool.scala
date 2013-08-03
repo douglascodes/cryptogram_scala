@@ -8,4 +8,5 @@ object LetterPool {
 
   def refer(x: Char): Letter =
     pool(x)
+
 }

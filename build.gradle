@@ -12,8 +12,9 @@ apply plugin: 'java'
 ext {
   scalaVersion = '2.10.1'
   specs2Version = "2.0-RC1"
-  scalacheck = '1.10.1'
+//  scalacheck = '1.10.1'
   junitVersion = '4.7.+'
+  jlineVersion = '1.10'
 }
 
 tasks.withType(ScalaCompile) {
@@ -29,7 +30,6 @@ configurations {
 repositories{
     mavenCentral() // Use 'maven central' for resolving your thirdparty dependencies.
                    // you can declare any maven/ivy/file repository to resolve your thirdparty dependencies
-    maven { url = 'http://scala-tools.org/repo-releases' }
 }
 
 test {
@@ -40,7 +40,9 @@ test {
 dependencies{
     scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
     scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
-    compile     'org.scala-lang:scala-library:' + scalaVersion
+    compile     'org.scala-lang:scala-library:' + scalaVersion,
+              'jline:jline:1.0'
+
     testCompile 'org.specs2:specs2_2.10:2.0-RC1',
                 'junit:junit:4.7'
 }
@@ -49,3 +51,5 @@ scalaConsole.dependsOn(build)
 scalaConsole.dependsOn(test)
 scalaConsole.classpath += sourceSets.main.output
 scalaTestConsole.classpath += sourceSets.test.output
+task console(dependsOn: 'scalaConsole')
+

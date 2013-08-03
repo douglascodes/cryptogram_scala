@@ -1,26 +1,20 @@
 package com.DouglasCodes.CryptogramScala
 
-class Word(val name: String, val dictionary: Dictionary ) extends UnitOfLanguage[DictionaryEntry] {
-  val pattern: String = CryptogramSolver.NumericPatternOfString(name)
-  val uName: String = CryptogramSolver.OrderedUniqueString(name)
-  val uSize = uName.size
+class Word(val name: String, val dictionary: Dictionary) extends UnitOfLanguage[DictionaryEntry] with Entry {
+
   val value =
     for (i: Char <- uName.toVector)
       yield LetterPool.refer(i)
 
   override protected var possibles: Set[DictionaryEntry] =
-    dictionary.words(name.size).filter( (a) =>
-      a.uSize == uSize &&
-      a.pattern == pattern )
+    dictionary.matches(this)
 
   def update(): Unit =
-    possibles = possibles.filter( ( testWord ) => this.canBe(testWord) )
+    possibles = possibles.filter( this.canBe(_) )
 
   override def canBe( testWord: DictionaryEntry ): Boolean = {
-    if ( testWord.size != this.uName.size )
-      return false
-    for ( i: Int <- (0 until testWord.size) )
-      if ( !(value(i).canBe(testWord.name(i) ) ) )
+    for ( i: Int <- (0 until testWord.uSize) )
+      if ( !(value(i).canBe(testWord.uName(i) ) ) )
         return false
     true
   }
