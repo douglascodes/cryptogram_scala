@@ -18,7 +18,7 @@ class Word(val name: String, val dictionary: Dictionary) extends UnitOfLanguage[
         yield p.name(rev) }.toSet )
 
   // Combination operator. Returns Map of letter objects and the suggested reassignment Set[]
-  def +(that: Word) = {
+  def +(that: Word): Map[Letter, Set[Char]] = {
     val similarKey: Vector[Letter] = hasSimilar(that)
     val myLocations: Vector[Int] = locationOfLetters(similarKey)
     val thatLocations: Vector[Int] = that.locationOfLetters(similarKey)

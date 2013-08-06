@@ -9,4 +9,8 @@ object LetterPool {
   def refer(x: Char): Letter =
     pool(x)
 
+  def reassignMap(assignment: Map[Letter, Set[Char]] ): Unit = {
+    for ((l, assign) <- assignment)
+      l.reassign(assign)
+  }
 }
