@@ -14,4 +14,13 @@ object LetterPool {
       if ( assign.isEmpty != true )
         l.reassign(assign)
   }
+
+  def killSingles(): Unit = {
+    val singleOrNot = pool.values.toSet.groupBy[Boolean]( _.singular )
+    for ( notSingle <- singleOrNot(false) )
+      for ( single <- singleOrNot(true) )
+        notSingle.removePossibilities(single.referPossibilities)
+  }
+
+
 }

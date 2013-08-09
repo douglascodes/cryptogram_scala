@@ -18,5 +18,13 @@ trait UnitOfLanguage[T] {
     def trim(p: Set[T] ) =
       reassign( possibles & p )
 
+    def removePossibility(p: T ) =
+      reassign( possibles - p )
+
+    def removePossibilities(p: Set[T] ) =
+      reassign( possibles -- p )
+
+    def referPossibilities: Set[T] =
+      possibles
 }
 
