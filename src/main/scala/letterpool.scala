@@ -11,6 +11,7 @@ object LetterPool {
 
   def reassignMap(assignment: Map[Letter, Set[Char]] ): Unit = {
     for ((l, assign) <- assignment)
-      l.reassign(assign)
+      if ( assign.isEmpty != true )
+        l.reassign(assign)
   }
 }
