@@ -4,7 +4,8 @@ object LetterPool {
   private val alphabet: Set[Char] = ('A' to 'Z').toSet
   private val pool: Map[Char, Letter] =
   { for ( a <- alphabet)
-    yield (a, new Letter(a) )}.toMap
+    yield (a, new Letter(a) )}.toMap +
+    (39.toChar -> new Letter(39.toChar, Set(39.toChar))) 
 
   def refer(x: Char): Letter =
     pool(x)
@@ -21,6 +22,5 @@ object LetterPool {
       for ( single <- singleOrNot(true) )
         notSingle.removePossibilities(single.referPossibilities)
   }
-
 
 }

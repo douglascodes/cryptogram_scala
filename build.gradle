@@ -9,6 +9,14 @@
 apply plugin:'scala' // applies the scala
 apply plugin: 'java'
 
+sourceSets {
+  main {
+    scala {
+      exclude 'init.scala'
+    }
+  }
+}
+
 ext {
   scalaVersion = '2.10.1'
   specs2Version = "2.0-RC1"
@@ -36,6 +44,7 @@ test {
     testLogging.showStandardStreams = true
 
 }
+
 
 dependencies{
     scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
