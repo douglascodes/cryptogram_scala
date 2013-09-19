@@ -1,11 +1,11 @@
 package com.DouglasCodes.CryptogramScala
 
-
 object Solver {
 	val d = new Dictionary("Full", "./src/resources/wordlist.txt")
 	val smith = new Dictionary("names", "./src/resources/smith.txt")
 	val splitREX = """[.?!]"* - """
 
+// Needs to be a var for 
 	val cryptogram: Set[Word] = string2Puzzle("LZ WDPQ P VZZC JZW LAD JEWIL LERD EI RPCD LAD PHYSPETLPTHD ZJ P TDO JWEDTQ LZ WDPQ EL P IDHZTQ LERD EI LZ RDDL PT ZXQ ZTD. - IDXOMT HAPRUEZT")
 	
 	def string2Puzzle(str: String): Set[Word] = {

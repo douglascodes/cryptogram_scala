@@ -1,13 +1,16 @@
 package com.DouglasCodes.CryptogramScala
 
-class Word(val name: String, val dictionary: Dictionary) extends UnitOfLanguage[DictionaryEntry] with Entry {
+class Word(val name: String, val dictionary: Dictionary, override protected var possibles: Set[DictionaryEntry] ) extends UnitOfLanguage[DictionaryEntry] with Entry {
+
+  def this(name: String, dictionary: Dictionary) =
+    this(name, dictionary, 
+    dictionary.matches(new DictionaryEntry(name)) // .filter(canBe(_))
+    )
 
   val value =
     for (i: Char <- uName.toVector)
       yield LetterPool.refer(i)
 
-  override protected var possibles: Set[DictionaryEntry] =
-    dictionary.matches(this).filter(canBe(_))
 
   def update(): Unit =
     possibles = possibles.filter( canBe(_) )

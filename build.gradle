@@ -40,20 +40,28 @@ repositories{
                    // you can declare any maven/ivy/file repository to resolve your thirdparty dependencies
 }
 
-test {
-    testLogging.showStandardStreams = true
 
+test { 
+  testLogging.showStandardStreams = true
+beforeTest { descriptor ->
+     logger.lifecycle("Running test: " + descriptor)
+  }
+
+  // listen to standard out and standard error of the test JVM(s)
+  onOutput { descriptor, event ->
+     logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+  }  
 }
-
 
 dependencies{
     scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
     scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
     compile     'org.scala-lang:scala-library:' + scalaVersion,
-              'jline:jline:1.0'
-
+              'jline:jline:1.0',
+              "ru.circumflex:circumflex-orm:2.1"
     testCompile 'org.specs2:specs2_2.10:2.0-RC1',
                 'junit:junit:4.7'
+    
 }
 
 scalaConsole.dependsOn(build)

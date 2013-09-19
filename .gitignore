@@ -5,9 +5,9 @@ docs/
 build/
 *.log
 log/
-
 target/
-
+*.jar
+lib/
 
 init.scala
 

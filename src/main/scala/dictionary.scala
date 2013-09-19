@@ -43,6 +43,8 @@ class Dictionary(val name: String, srcfile: String ) {
 
   def matches(entry: Entry): Set[DictionaryEntry] = words(entry.size).filter(entry.fits(_) )
 
+
+
   override def toString: String =
     name + " dictionary: " + { for ( s <- words.values)
       yield s.size }.sum + " entries."
