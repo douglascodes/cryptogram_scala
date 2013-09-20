@@ -25,7 +25,8 @@ trait Entry {
 
   def fits(that: Entry): Boolean = {
     this.uSize == that.uSize &&
-    this.pattern == that.pattern
+    this.pattern == that.pattern &&
+    this.size == that.size
   }
 
   override def toString: String = name

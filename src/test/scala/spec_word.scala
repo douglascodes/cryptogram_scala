@@ -15,15 +15,15 @@ class WordTest extends SpecificationWithJUnit { override def is = s2"""
  	'SAFETY' should
  		initialize with a determined set 												$saf1
 		have 1 possibilities 																		$saf2
-    be singular                                             $saf3
-    is empty after update                                   $saf5
+    not be singular                                         $saf3
+    is singular after update                                $saf5
 		
  	                                                                 """
 	object wordSetup  {
 	  val exampleDictionary = { new Dictionary("Full", "./src/resources/wordlist.txt") }
 	  lazy val hello = { new Word("HELLO", exampleDictionary) }
 		lazy val a = { new Word("A", exampleDictionary) }
-		lazy val safety = { new Word("SAFETY", exampleDictionary, Set(new DictionaryEntry("CUDDLE")) ) }
+		lazy val safety = { new Word("SAFETY", exampleDictionary, Set(new DictionaryEntry("COUPLE"), new DictionaryEntry("PEPPER") ) ) }
 		}
 
   val h = wordSetup.hello
@@ -41,12 +41,11 @@ class WordTest extends SpecificationWithJUnit { override def is = s2"""
   }
 
   def saf1 = s must haveClass[Word]
-  def saf2 = s.possibilities must be_==(1)
-  def saf3 = s.singular
-
+  def saf2 = s.possibilities must be_==(2)
+  def saf3 = !s.singular
   def saf5 = {
     s.update()
-    s.possibilities must be_==(0)
+    s.singular
   }
 
 }
