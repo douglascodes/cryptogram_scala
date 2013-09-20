@@ -47,6 +47,8 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
     value.filter( that.value.contains(_))
 
   override def canBe( testWord: DictionaryEntry ): Boolean = {
+    if ( !this.fits(testWord)  ) return false
+    
     for ( i: Int <- (0 until testWord.uSize) )
       if ( !(value(i).canBe(testWord.uName(i) ) ) )
         return false

@@ -49,10 +49,3 @@ object Solver {
 object Main extends App {
 	Solver.displayAll(Solver.cryptogram)	
 }
-
-
-
-
-
-
-

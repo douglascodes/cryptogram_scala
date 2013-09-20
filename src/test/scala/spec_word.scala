@@ -15,7 +15,8 @@ class WordTest extends SpecificationWithJUnit { override def is = s2"""
  	'SAFETY' should
  		initialize with a determined set 												$saf1
 		have 1 possibilities 																		$saf2
-		be singular					 																		$saf3
+    be singular                                             $saf3
+    is empty after update                                   $saf5
 		
  	                                                                 """
 	object wordSetup  {
@@ -42,5 +43,10 @@ class WordTest extends SpecificationWithJUnit { override def is = s2"""
   def saf1 = s must haveClass[Word]
   def saf2 = s.possibilities must be_==(1)
   def saf3 = s.singular
+
+  def saf5 = {
+    s.update()
+    s.possibilities must be_==(0)
+  }
 
 }

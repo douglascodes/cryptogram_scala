@@ -1,6 +1,6 @@
 retrieveManaged := true
 
-initialCommands in console := """import com.DouglasCodes.CryptogramScala._"""
+initialCommands in console := """import com.DouglasCodes.CryptogramScala._, ru.circumflex.orm._"""
      
 libraryDependencies ++= Seq(
 	"org.scala-lang" % "scala-compiler" % "2.10.2",
