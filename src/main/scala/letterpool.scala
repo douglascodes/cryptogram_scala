@@ -1,14 +1,15 @@
 package com.DouglasCodes.CryptogramScala
 
-object LetterPool {
-  private val alphabet: Set[Char] = ('A' to 'Z').toSet
-  private val pool: Map[Char, Letter] =
+trait LetterPool {
+  private val alphabet: Set[Char]  = ('A' to 'Z').toSet
+  private val pool: Map[Char, Letter]  =
   { for ( a <- alphabet)
     yield (a, new Letter(a) )}.toMap +
-    (39.toChar -> new Letter(39.toChar, Set(39.toChar))) 
+    (39.toChar -> new Letter(39.toChar, Set(39.toChar)))
 
-  def refer(x: Char): Letter =
-    pool(x)
+  def apply(x: Char): Letter = { refer(x) }
+
+  def refer(x: Char): Letter = { pool(x) }
 
   def reassignMap(assignment: Map[Letter, Set[Char]] ): Unit = {
     for ((l, assign) <- assignment)
@@ -23,4 +24,7 @@ object LetterPool {
         notSingle.removePossibilities(single.referPossibilities)
   }
 
+}
+
+object LetterPool extends LetterPool {
 }

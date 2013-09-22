@@ -3,7 +3,7 @@ package com.DouglasCodes.CryptogramScala
 class Word(val name: String, val dictionary: Dictionary, override protected var possibles: Set[DictionaryEntry] ) extends UnitOfLanguage[DictionaryEntry] with Entry {
 
   def this(name: String, dictionary: Dictionary) =
-    this(name, dictionary, 
+    this(name, dictionary,
     dictionary.matches(new DictionaryEntry(name)) // .filter(canBe(_))
     )
 
@@ -12,8 +12,10 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
       yield LetterPool.refer(i)
 
 
-  def update(): Unit =
+  def update(): Word = {
     possibles = possibles.filter( canBe(_) )
+    this
+  }
 
   def reverse(): Unit =
     for ( rev <- 0 until this.size )
@@ -41,14 +43,14 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
 
   def locationOfLetters(key: Vector[Letter] ): Vector[Int] =
     {for (l <- key )
-      yield this.value.indexWhere(_ == l) }
+      yield this.value.indexOf( l ) }
 
   def hasSimilar(that: Word): Vector[Letter] =
-    value.filter( that.value.contains(_))
+    this.value.filter( that.value.contains(_))
 
   override def canBe( testWord: DictionaryEntry ): Boolean = {
     if ( !this.fits(testWord)  ) return false
-    
+
     for ( i: Int <- (0 until testWord.uSize) )
       if ( !(value(i).canBe(testWord.uName(i) ) ) )
         return false

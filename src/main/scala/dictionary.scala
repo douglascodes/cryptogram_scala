@@ -29,6 +29,9 @@ trait Entry {
     this.size == that.size
   }
 
+  def unfits(that: Entry): Boolean =
+    ! fits(that)
+
   override def toString: String = name
 }
 
@@ -43,8 +46,6 @@ class Dictionary(val name: String, srcfile: String ) {
       yield (new DictionaryEntry(l)) }.toSet.groupBy( _.size )
 
   def matches(entry: Entry): Set[DictionaryEntry] = words(entry.size).filter(entry.fits(_) )
-
-
 
   override def toString: String =
     name + " dictionary: " + { for ( s <- words.values)
