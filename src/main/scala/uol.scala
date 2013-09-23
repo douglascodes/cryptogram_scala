@@ -12,6 +12,9 @@ trait UnitOfLanguage[T] {
     def canBe(x: T): Boolean =
       possibles.contains(x)
 
+    def cantBe(x: T): Boolean =
+      !canBe(x)
+
     def reassign(p: Set[T] ): Int = {
       possibles = p
       possibilities

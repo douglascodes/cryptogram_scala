@@ -15,7 +15,8 @@ class LetterTest extends SpecificationWithJUnit {
 
     "not include self if instantiated without possibles" in {
       val h = new Letter('H')
-      h.canBe('H') must beFalse
+      (h.canBe('H') must beFalse ) and
+      (h.cantBe('H') must beTrue )
     }
 
     "can include self if instantiated with possibles" in {

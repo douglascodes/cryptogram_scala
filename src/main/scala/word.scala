@@ -22,7 +22,7 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
       this.value(rev).trim({for (p <- possibles )
         yield p.name(rev) }.toSet )
 
-  // Combination operator. Returns Map of letter objects and the suggested reassignment Set[]
+  // Combination operator. Returns Map of letter objects and the suggested reassignment Set[Char]
   def +(that: Word): Map[Letter, Set[Char]] = {
     val similarKey: Vector[Letter] = hasSimilar(that)
     val myLocations: Vector[Int] = locationOfLetters(similarKey)
@@ -49,10 +49,10 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
     this.value.filter( that.value.contains(_))
 
   override def canBe( testWord: DictionaryEntry ): Boolean = {
-    if ( !this.fits(testWord)  ) return false
+    if ( this.unfits(testWord)  ) return false
 
     for ( i: Int <- (0 until testWord.uSize) )
-      if ( !(value(i).canBe(testWord.uName(i) ) ) )
+      if ( value(i).cantBe(testWord.uName(i)  ) )
         return false
     true
   }
