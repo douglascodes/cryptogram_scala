@@ -30,6 +30,7 @@ Five letter words with unique chars
  	initialize with a determined set 												        $saf1
 	have 1 possibilities 																		        $saf2
   not be singular                                                 $saf3
+  get reversed 'string set' should get inverted possibilities     $saf4
 
 'COUPLE'
   is singular after update                                        $coup1
@@ -76,6 +77,7 @@ Five letter words with unique chars
   def saf1 = s must haveClass[Word]
   def saf2 = s.possibilities must be_==(2)
   def saf3 = !s.singular
+  def saf4 = s.getStringSet( Vector(5,4,3,2,1,0) ) must beEqualTo(Set("ELPUOC", "RECNAD"))
 
   def coup1 = {
     c.update()

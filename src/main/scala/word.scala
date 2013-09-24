@@ -1,11 +1,19 @@
 package com.DouglasCodes.CryptogramScala
 
-class Word(val name: String, val dictionary: Dictionary, override protected var possibles: Set[DictionaryEntry] ) extends UnitOfLanguage[DictionaryEntry] with Entry {
+class Word(
+  val name: String,
+  val dictionary: Dictionary,
+    var initial: Set[DictionaryEntry] ) extends
+    UnitOfLanguage[DictionaryEntry] with
+    Entry {
 
   def this(name: String, dictionary: Dictionary) =
     this(name, dictionary,
-    dictionary.matches(new DictionaryEntry(name)) // .filter(canBe(_))
+    dictionary.matches(new DictionaryEntry(name))
     )
+
+  protected var possibles: Set[DictionaryEntry] =
+    initial
 
   val value =
     for (i: Char <- uName.toVector)
@@ -17,10 +25,12 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
     this
   }
 
-  def reverse(): Unit =
-    for ( rev <- 0 until this.size )
-      this.value(rev).trim({for (p <- possibles )
-        yield p.name(rev) }.toSet )
+  // Too many side effects to use this. Takes the Values and reassigns the letter objects
+  // according to current possibilities. This is superceded by the efficiency of the plus operator.
+  // def reverse(): Unit =
+  //   for ( rev <- 0 until this.uSize )
+  //     this.value(rev).trim({for (p <- possibles )
+  //       yield p.name(rev) }.toSet )
 
   // Combination operator. Returns Map of letter objects and the suggested reassignment Set[Char]
   def +(that: Word): Map[Letter, Set[Char]] = {
@@ -36,17 +46,17 @@ class Word(val name: String, val dictionary: Dictionary, override protected var 
     temp.foldLeft[Map[Letter, Set[Char]]]( Map() )((B, A) => A ++ B) //Join the maps together
   }
 
-  def getStringSet(locations: Vector[Int] ): Set[String] =
-    for (p <- possibles )
-     yield { for ( l <- locations )
-     yield {p.uName(l) } }.mkString
+  def hasSimilar(that: Word): Vector[Letter] =
+    this.value.filter( that.value.contains(_))
 
   def locationOfLetters(key: Vector[Letter] ): Vector[Int] =
     {for (l <- key )
       yield this.value.indexOf( l ) }
 
-  def hasSimilar(that: Word): Vector[Letter] =
-    this.value.filter( that.value.contains(_))
+  def getStringSet(locations: Vector[Int] ): Set[String] =
+    for (p <- possibles )
+     yield { for ( l <- locations )
+     yield {p.uName(l) } }.mkString
 
   override def canBe( testWord: DictionaryEntry ): Boolean = {
     if ( this.unfits(testWord)  ) return false
