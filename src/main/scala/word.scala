@@ -34,6 +34,7 @@ class Word(
 
   // Combination operator. Returns Map of letter objects and the suggested reassignment Set[Char]
   def +(that: Word): Map[Letter, Set[Char]] = {
+
     val similarKey: Vector[Letter] = hasSimilar(that)
     val myLocations: Vector[Int] = locationOfLetters(similarKey)
     val thatLocations: Vector[Int] = that.locationOfLetters(similarKey)
@@ -44,6 +45,7 @@ class Word(
           yield possible(position)
         }.toSet)
     temp.foldLeft[Map[Letter, Set[Char]]]( Map() )((B, A) => A ++ B) //Join the maps together
+
   }
 
   def hasSimilar(that: Word): Vector[Letter] =
